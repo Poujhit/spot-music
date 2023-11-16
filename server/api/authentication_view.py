@@ -56,5 +56,6 @@ def Login(request):
         ) + timedelta(hours=24)}, "secret", algorithm="HS256")
 
         return JsonResponse({'status': 200, 'token': token}, status=200)
+
     except User.DoesNotExist:
         return JsonResponse({'status': 400, 'message': 'user does not exist'}, status=400)
