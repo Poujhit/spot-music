@@ -159,7 +159,10 @@ const AuthPage: React.FC<IAuthPage> = () => {
 
                                                 console.log(response.data);
 
-                                                window.localStorage.setItem('spot-token', response.data?.token)
+                                                window.localStorage.setItem(
+                                                    "spot-token",
+                                                    response.data?.token
+                                                );
                                                 // const response = await login.mutateAsync(form);
                                                 // err check for null token later
                                                 //   setTokenStore(
@@ -169,10 +172,10 @@ const AuthPage: React.FC<IAuthPage> = () => {
                                                 // set the token in axios header coz when user is logged out, the customAxios instance
                                                 // will not have the headers set
                                                 customAxios.defaults.headers.Authorization = `Bearer ${response.data?.token}`;
-                                                navigate('/home');
+                                                navigate("/home");
                                                 // fix the typing for err
                                             } catch (err: any) {
-                                                console.log(err)
+                                                console.log(err);
                                                 console.log(err?.response?.data?.result);
                                             }
                                         }}
