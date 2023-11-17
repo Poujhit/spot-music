@@ -38,7 +38,7 @@ class Album(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.album_title} by {self.artist.artist_name}"
+        return f"{self.album_title}"
 
 
 class Track(models.Model):
