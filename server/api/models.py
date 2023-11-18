@@ -58,7 +58,7 @@ class Track(models.Model):
 
 
 class Playlist(models.Model):
-    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     playlist_name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     tracks = models.ManyToManyField(Track)
@@ -67,6 +67,9 @@ class Playlist(models.Model):
 
     # System should be able to auto suggest songs to a user based on the songs that are present in their playlist.
     # Can match to a genre/album/artist
+    # I can run this function for each of the user playlist,
+    # get  5songs suggestions for each playlist,
+    # remove the duplicates and send to user as suggested for you.
     def suggest_songs(self, num_suggestions=5):
         playlist_tracks = self.tracks.all()
 

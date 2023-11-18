@@ -6,6 +6,7 @@ import json
 import jwt
 from api.models import User
 from datetime import datetime, timedelta
+from api.utils.errors_from_serailiser import errors_from_serialiser
 
 
 from rest_framework.decorators import api_view
@@ -36,12 +37,12 @@ def RegisterUser(request):
         errors[field_name] = field_errors[0]
     errors['status'] = 400
 
-    return JsonResponse(errors, status=400)
+    return JsonResponse(errors_from_serialiser(user_serializer), status=400)
 
 
 @api_view(['POST'])
 def Login(request):
-    data = json.loads(request.body)
+    data = request.data
     if ('email' not in data or 'password' not in data):
         return JsonResponse({'status': 400, 'message': 'Missing fields'}, status=400)
     try:
