@@ -90,13 +90,16 @@ def save_user_rating(request):
         user = User.objects.get(pk=user_id)
         song = Track.objects.get(pk=data['track_id'])
 
-        _, created = UserRating.objects.get_or_create(
-            user=user, track=song, rating=data['rating'])
+        answer, created = UserRating.objects.update_or_create(
+            user=user, track=song)
+
+        answer.rating = data['rating']
+        answer.save()
 
         if created:
             return JsonResponse({'status': 200, 'success': 'User rating saved successfully'}, status=200)
 
-        return JsonResponse({'status': 400, 'error': 'User rating already exists'}, status=400)
+        return JsonResponse({'status': 200, 'error': 'User rating updated'}, status=200)
     except ObjectDoesNotExist:
         return JsonResponse({'error': 'User or song not found'}, status=404)
 
