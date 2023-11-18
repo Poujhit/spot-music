@@ -1,4 +1,5 @@
 from django.db import models
+import random
 
 # Create your models here.
 
@@ -70,6 +71,7 @@ class Playlist(models.Model):
     # I can run this function for each of the user playlist,
     # get  5songs suggestions for each playlist,
     # remove the duplicates and send to user as suggested for you.
+    # maxium 20 songs will be suggested for now.
     def suggest_songs(self, num_suggestions=5):
         playlist_tracks = self.tracks.all()
 
@@ -82,9 +84,12 @@ class Playlist(models.Model):
             models.Q(genre__in=genres) |
             models.Q(album__in=albums) |
             models.Q(artists__in=artists)
-        ).exclude(id__in=[track.id for track in playlist_tracks]).distinct()[:num_suggestions]
+        ).exclude(id__in=[track.id for track in playlist_tracks]).distinct()
 
-        return suggested_songs
+        shuffled_songs = list(suggested_songs)
+        random.shuffle(shuffled_songs)
+
+        return shuffled_songs[:num_suggestions]
 
     def __str__(self):
         return self.playlist_name

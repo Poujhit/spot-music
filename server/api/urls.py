@@ -29,6 +29,8 @@ urlpatterns = [
          playlist_views.delete_playlist, name='delete-playlist'),
     path('playlist/<int:playlist_id>/',
          playlist_views.get_playlist_details, name='get-playlist-details'),
+    path('suggested-for-you/',
+         playlist_views.suggested_for_you, name='suggested-for-you'),
 
     path('search-songs/<str:search_text>/',
          search_views.search_songs, name='search-songs'),

@@ -105,3 +105,29 @@ def get_playlist_details(request, playlist_id):
         return JsonResponse({'playlist': serialized_playlist})
     except ObjectDoesNotExist:
         return JsonResponse({'error': 'Playlist not found'}, status=404)
+
+
+@api_view(['GET'])
+def suggested_for_you(request):
+    try:
+        token = get_token(request.headers['Authorization'])
+        user_id = decode_jwt(token)
+        user = User.objects.get(pk=user_id)
+
+        user_playlists = Playlist.objects.filter(user=user)
+
+        suggested_for_you = []
+
+        for playlist in user_playlists:
+            if len(suggested_for_you) == 20:
+                break
+            suggested_songs = playlist.suggest_songs()
+            serialized_suggested_songs = TrackSerializer(
+                suggested_songs, many=True)
+            suggested_for_you.extend(serialized_suggested_songs.data)
+
+        # serialized_playlist = PlaylistSerializer(playlist).data
+
+        return JsonResponse({'total': len(suggested_for_you), 'suggested_songs': suggested_for_you})
+    except ObjectDoesNotExist:
+        return JsonResponse({'error': 'Playlist not found'}, status=404)
