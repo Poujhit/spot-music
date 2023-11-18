@@ -69,15 +69,8 @@ def get_user_playlists(request):
 
         user_playlists = Playlist.objects.filter(user=user)
 
-        serialized_playlists = []
-        for playlist in user_playlists:
-            serialized_playlist = PlaylistSerializer(playlist).data
-
-            # Include details about tracks in the playlist
-            serialized_playlist['tracks'] = TrackSerializer(
-                playlist.tracks.all(), many=True).data
-
-            serialized_playlists.append(serialized_playlist)
+        serialized_playlists = PlaylistSerializer(
+            user_playlists, many=True).data
 
         return JsonResponse({'status': 'success', 'playlists': serialized_playlists}, status=200)
     except ObjectDoesNotExist:
@@ -105,24 +98,10 @@ def delete_playlist(request, playlist_id):
 @api_view(['GET'])
 def get_playlist_details(request, playlist_id):
     try:
-        # Retrieve the playlist using the provided playlist_id
         playlist = Playlist.objects.get(pk=playlist_id)
 
-        # Serialize the playlist data with details about tracks and albums
         serialized_playlist = PlaylistSerializer(playlist).data
 
-        # Include details about tracks in the playlist
-        # serialized_playlist['tracks'] = TrackSerializer(
-        #     playlist.tracks.all(), many=True).data
-
-        # print(json.dumps(
-        #     {'data': playlist.tracks.values_list('album', flat=True).all()}))
-
-        # # Include details about albums in the playlist (assuming each track has an associated album)
-        # serialized_playlist['albums'] = AlbumSerializer(
-        #     playlist.tracks.values_list('album', flat=True).distinct(), many=True).data
-
-        # Return the serialized data as JSON
         return JsonResponse({'playlist': serialized_playlist})
     except ObjectDoesNotExist:
         return JsonResponse({'error': 'Playlist not found'}, status=404)
