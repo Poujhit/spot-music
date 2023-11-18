@@ -105,6 +105,25 @@ def save_user_rating(request):
 
 
 @api_view(['GET'])
+def get_user_ratings_for_song(request, track_id):
+    try:
+        token = get_token(request.headers['Authorization'])
+        user_id = decode_jwt(token)
+        data = request.data
+        user = User.objects.get(pk=user_id)
+        song = Track.objects.get(pk=data['track_id'])
+
+        user_rating = UserRating.objects.get(
+            user=user, track=song)
+
+        print(user_rating)
+
+        return JsonResponse({'status': 200, 'rating': 'User rating is here'}, status=200)
+    except ObjectDoesNotExist:
+        return JsonResponse({'error': 'User or song not found'}, status=404)
+
+
+@api_view(['GET'])
 def get_songs_in_album(request, album_id):
     try:
         album = Album.objects.get(pk=album_id)
