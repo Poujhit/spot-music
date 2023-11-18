@@ -5,6 +5,7 @@ from api.utils.get_token import get_token
 from api.utils.decode_jwt import decode_jwt
 from rest_framework.decorators import api_view
 from django.core.exceptions import ObjectDoesNotExist
+import random
 
 
 # Create your views here.
@@ -51,7 +52,11 @@ def artist_detail(request, artist_id):
         artist = Artist.objects.get(pk=artist_id)
         serialized_artist = ArtistSerializer(artist).data
 
-        return JsonResponse({'status': 200, 'song': serialized_artist}, status=200)
+        tracks = TrackSerializer(Track.objects.filter(
+            artists=artist), many=True).data
+        random.shuffle(tracks)
+
+        return JsonResponse({'status': 200, 'artist': serialized_artist, 'songs': tracks[:5]}, status=200)
     except ObjectDoesNotExist:
         return JsonResponse({'status': 404, 'error': 'Artist not found'}, status=404)
 
