@@ -12,7 +12,7 @@ urlpatterns = [
     path('artist-detail/<int:artist_id>/',
          views.artist_detail, name='get-artist-detail'),
     path('songs-by-genre-id/<int:genre_id>/',
-         views.songs_by_genre, name='get-songs-by-genre-id'),
+         views.songs_by_genre_id, name='get-songs-by-genre-id'),
     path('save-user-rating/', views.save_user_rating, name='save-user-rating'),
     path('album/<int:album_id>/',
          views.get_songs_in_album, name='get-songs-in-album'),

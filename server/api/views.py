@@ -62,7 +62,7 @@ def artist_detail(request, artist_id):
 
 
 @api_view(['GET'])
-def songs_by_genre(request, genre_id):
+def songs_by_genre_id(request, genre_id):
     try:
         genre = Genre.objects.get(pk=genre_id)
         songs_in_genre = Track.objects.filter(genre=genre)
