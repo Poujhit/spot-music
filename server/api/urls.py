@@ -44,7 +44,4 @@ urlpatterns = [
     path('search-albums/<str:search_text>/',
          search_views.search_albums, name='search-albums'),
 
-
-
-
 ]
