@@ -31,6 +31,11 @@ urlpatterns = [
          playlist_views.get_playlist_details, name='get-playlist-details'),
     path('suggested-for-you/',
          playlist_views.suggested_for_you, name='suggested-for-you'),
+    path('create-system-generated-playlist/',
+         playlist_views.create_system_generated_playlist, name='create-system-generated-playlist'),
+    path('get-system-generated-playlists/',
+         playlist_views.get_system_generated_playlists, name='get-system-generated-playlists'),
+
 
     path('search-songs/<str:search_text>/',
          search_views.search_songs, name='search-songs'),

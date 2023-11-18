@@ -77,6 +77,23 @@ def get_user_playlists(request):
         return JsonResponse({'error': 'User not found'}, status=404)
 
 
+@api_view(['GET'])
+def get_system_generated_playlists(request):
+    try:
+        token = get_token(request.headers['Authorization'])
+        user_id = decode_jwt(token)
+        user = User.objects.get(pk=user_id)
+
+        user_playlists = Playlist.objects.filter(user=user)
+
+        serialized_playlists = PlaylistSerializer(
+            user_playlists, many=True).data
+
+        return JsonResponse({'status': 'success', 'playlists': serialized_playlists}, status=200)
+    except ObjectDoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
+
+
 @api_view(['DELETE'])
 def delete_playlist(request, playlist_id):
     try:
@@ -126,8 +143,40 @@ def suggested_for_you(request):
                 suggested_songs, many=True)
             suggested_for_you.extend(serialized_suggested_songs.data)
 
-        # serialized_playlist = PlaylistSerializer(playlist).data
-
         return JsonResponse({'total': len(suggested_for_you), 'suggested_songs': suggested_for_you})
     except ObjectDoesNotExist:
         return JsonResponse({'error': 'Playlist not found'}, status=404)
+
+
+@api_view(['POST'])
+def create_system_generated_playlist(request):
+    # group songs and create playlist (under system user) based on condition passed.
+    # system user id is 2
+    # https://stackoverflow.com/questions/59350525/django-how-to-query-with-condition-in-a-string
+    try:
+        user = User.objects.get(pk=2)
+        data = request.data
+        filter_dict = dict([data['filter'].split('=')])
+        tracks = Track.objects.filter(**filter_dict)
+        instance = Playlist.objects.create(
+            user=user, playlist_name=data['playlist_name'], description=data['description'])
+        instance.tracks.set(tracks)
+
+        return JsonResponse({'status': 'success', 'message': 'Playlist created'}, status=200)
+    except ObjectDoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
+
+
+@api_view(['GET'])
+def get_system_generated_playlists(request):
+    try:
+        user = User.objects.get(pk=2)
+
+        user_playlists = Playlist.objects.filter(user=user)
+
+        serialized_playlists = PlaylistSerializer(
+            user_playlists, many=True).data
+
+        return JsonResponse({'status': 'success', 'playlists': serialized_playlists}, status=200)
+    except ObjectDoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
