@@ -43,6 +43,6 @@ def search_albums(request, search_text):
 
         serialized_albums = AlbumSerializer(matching_albums, many=True).data
 
-        return JsonResponse({'artists': serialized_albums})
+        return JsonResponse({'albums': serialized_albums})
     except ObjectDoesNotExist:
         return JsonResponse({'error': 'Playlist not found'}, status=404)
