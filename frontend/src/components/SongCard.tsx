@@ -9,19 +9,24 @@ import Typography from "@mui/material/Typography";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface ISongCard {
     id: number;
     songName: string;
     artistNames: string;
     imageUrl: string;
+    notClickable?: boolean;
+
 }
 
 const SongCard: React.FC<ISongCard> = (props) => {
+    const navigate = useNavigate();
+
     return (
         <Card
-            sx={{ maxWidth: 280, cursor: "pointer", margin: 1 }}
-            onClick={() => { }}
+            sx={{ maxWidth: 280, cursor: !props.notClickable ? "pointer" : undefined, margin: 1 }}
+            onClick={() => { !props.notClickable && navigate(`/song/${props.id}`) }}
             elevation={5}
         >
             <CardHeader

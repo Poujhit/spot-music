@@ -5,6 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 
 import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
 
 // "id": 3,
 //             "artist_name": "Kendrick Lamar",
@@ -14,14 +15,21 @@ interface IArtistCardProps {
     imageUrl: string;
     id: number;
     name: string;
-
+    notClickable?: boolean;
 }
 
 const ArtistCard: React.FC<IArtistCardProps> = (props) => {
+    const navigate = useNavigate();
     return (
         <Card
-            sx={{ maxWidth: 280, cursor: "pointer", margin: 1 }}
-            onClick={() => { }}
+            sx={{
+                maxWidth: 280,
+                cursor: !props.notClickable ? "pointer" : undefined,
+                margin: 1,
+            }}
+            onClick={() => {
+                !props.notClickable && navigate(`/artist/${props.id}`);
+            }}
             elevation={5}
         >
             <CardMedia
