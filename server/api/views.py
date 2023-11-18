@@ -1,6 +1,6 @@
 from api.models import Track, Artist, Genre, UserRating, User, Album
 from django.http import JsonResponse
-from api.serializer import TrackSerializer, ArtistSerializer, NewTrackSerializer
+from api.serializer import TrackSerializer, ArtistSerializer, NewTrackSerializer, AlbumSerializer
 from api.utils.get_token import get_token
 from api.utils.decode_jwt import decode_jwt
 from rest_framework.decorators import api_view
@@ -113,3 +113,27 @@ def get_songs_in_album(request, album_id):
         return JsonResponse({'songs': serialized_songs})
     except ObjectDoesNotExist:
         return JsonResponse({'error': 'User or song not found'}, status=404)
+
+
+@api_view(['GET'])
+def get_random_albums(request):
+    num_albums = 10
+    try:
+        random_albums = Album.objects.order_by('?')[:num_albums]
+        serialized_albums = AlbumSerializer(random_albums, many=True).data
+
+        return JsonResponse({'count': len(serialized_albums), 'albums': serialized_albums})
+    except Album.DoesNotExist:
+        return JsonResponse({'error': 'Albums not found'}, status=404)
+
+
+@api_view(['GET'])
+def get_random_songs(request):
+    num_albums = 10
+    try:
+        random_songs = Track.objects.order_by('?')[:num_albums]
+        serialized_songs = TrackSerializer(random_songs, many=True).data
+
+        return JsonResponse({'count': len(serialized_songs), 'songs': serialized_songs})
+    except Track.DoesNotExist:
+        return JsonResponse({'error': 'Songs not found'}, status=404)

@@ -16,6 +16,8 @@ urlpatterns = [
     path('save-user-rating/', views.save_user_rating, name='save-user-rating'),
     path('album/<int:album_id>/',
          views.get_songs_in_album, name='get-songs-in-album'),
+    path('get-albums/', views.get_random_albums, name='get-albums'),
+    path('get-songs/', views.get_random_songs, name='get-songs'),
 
 
     path('create-playlist/', playlist_views.create_playlist, name='create-playlist'),
