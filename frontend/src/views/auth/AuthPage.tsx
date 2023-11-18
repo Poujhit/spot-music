@@ -153,7 +153,7 @@ const AuthPage: React.FC<IAuthPage> = () => {
                                             //   }
                                             try {
                                                 const response = await customAxios.post(
-                                                    `${import.meta.env.VITE_SERVER_URL}/api/v1/login/`,
+                                                    `login/`,
                                                     form
                                                 );
 

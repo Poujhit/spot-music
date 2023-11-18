@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const customAxios = axios.create({
-  baseURL: `${import.meta.env.VITE_SERVER_URL}/api`,
+  baseURL: `${import.meta.env.VITE_SERVER_URL}/api/v1`,
   headers: {
     Authorization: window.localStorage.getItem("spot-token")
       ? `Bearer ${window.localStorage.getItem("spot-token")}`
