@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Box, Typography } from "@mui/material";
+import { Box, Rating, Typography } from "@mui/material";
 import SongCard from "components/SongCard";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -10,6 +10,8 @@ interface SongPageProps { }
 const SongPage: React.FC<SongPageProps> = () => {
     const { songId } = useParams();
     const [song, setSong] = useState<Record<string, any>>({});
+
+    const [rating, setRating] = React.useState<number | null>(2);
 
     useEffect(() => {
         customAxios
@@ -37,7 +39,22 @@ const SongPage: React.FC<SongPageProps> = () => {
                         .join(", ")}
                     imageUrl={song.track_image_url}
                 />
+                <Box mb={1} />
+
+                <Typography variant="h6">Add Rating to the song</Typography>
+                <Rating
+                    name="simple-controlled"
+                    value={rating}
+                    onChange={async (_, newValue) => {
+                        setRating(newValue);
+                        await customAxios.post("save-user-rating/", {
+                            track_id: songId,
+                            rating: newValue || 0,
+                        });
+                    }}
+                />
             </Box>
+
             <Typography variant="h5" sx={{ textAlign: "center" }}>
                 Player
             </Typography>
