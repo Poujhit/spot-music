@@ -5,7 +5,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 
 import Typography from "@mui/material/Typography";
-
+import { useNavigate } from "react-router-dom";
 
 interface IPlayListCardProps {
     id: number;
@@ -14,14 +14,16 @@ interface IPlayListCardProps {
 }
 
 const PlayListCard: React.FC<IPlayListCardProps> = (props) => {
+    const navigate = useNavigate();
 
     return (
         <Card
             sx={{ maxWidth: 280, cursor: "pointer", margin: 1 }}
-            onClick={() => { }}
+            onClick={() => {
+                navigate(`/playlist/${props.id}`);
+            }}
             elevation={5}
         >
-
             {/* <CardMedia
                 component="img"
                 height="140"

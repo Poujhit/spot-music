@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import AudiotrackIcon from "@mui/icons-material/Audiotrack";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 interface ISongsListProps {
@@ -20,6 +20,8 @@ interface ISongsListProps {
 
 const SongsList: React.FC<ISongsListProps> = (props) => {
     const navigate = useNavigate();
+    const location = useLocation()
+
 
     return (
         <Box sx={{ flexGrow: 1, maxWidth: 652 }}>
@@ -29,7 +31,7 @@ const SongsList: React.FC<ISongsListProps> = (props) => {
                         key={song?.id}
                         secondaryAction={
                             <>
-                                <IconButton edge="end" aria-label="add to playlist">
+                                <IconButton edge="end" aria-label="add to playlist" disabled={location.pathname.includes('playlist')}>
                                     <PlaylistAddIcon />
                                 </IconButton>
                             </>

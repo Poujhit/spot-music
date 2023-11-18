@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import PlayListAdd from "@mui/icons-material/PlaylistAdd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -31,8 +31,8 @@ const SongCard: React.FC<ISongCard> = (props) => {
         >
             <CardHeader
                 action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
+                    <IconButton aria-label="settings" >
+                        <PlayListAdd />
                     </IconButton>
                 }
             />
