@@ -110,7 +110,10 @@ def get_songs_in_album(request, album_id):
 
         serialized_songs = NewTrackSerializer(songs_in_album, many=True).data
 
-        return JsonResponse({'songs': serialized_songs})
+        data = AlbumSerializer(album).data
+        data['songs'] = serialized_songs
+
+        return JsonResponse({'album': data})
     except ObjectDoesNotExist:
         return JsonResponse({'error': 'User or song not found'}, status=404)
 
