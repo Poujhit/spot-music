@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 
 
 interface IAlbumCardProps {
+    id: number;
     imageUrl: string;
     albumName: string;
     artistNames: string;
@@ -21,13 +22,7 @@ const AlbumCard: React.FC<IAlbumCardProps> = (props) => {
             onClick={() => { }}
             elevation={5}
         >
-            {/* <CardHeader
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-      /> */}
+
             <CardMedia
                 component="img"
                 height="140"

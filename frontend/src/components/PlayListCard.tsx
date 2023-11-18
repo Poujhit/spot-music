@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 
 
 interface IPlayListCardProps {
+    id: number;
     name: string;
     description: string;
 }

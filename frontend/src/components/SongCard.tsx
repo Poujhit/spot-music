@@ -11,6 +11,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import React from "react";
 
 interface ISongCard {
+    id: number;
     songName: string;
     artistNames: string;
     imageUrl: string;

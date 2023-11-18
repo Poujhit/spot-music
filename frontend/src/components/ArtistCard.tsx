@@ -1,65 +1,45 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
 
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+import Typography from "@mui/material/Typography";
 
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+// "id": 3,
+//             "artist_name": "Kendrick Lamar",
+//             "image_url": "https://maxillo.netlify.app/artistpl.jpeg",
 
-interface ExpandMoreProps extends IconButtonProps {
-    expand: boolean;
+interface IArtistCardProps {
+    imageUrl: string;
+    id: number;
+    name: string;
+
 }
 
-const ExpandMore = styled((props: ExpandMoreProps) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-    }),
-}));
-
-export default function ArtistCard() {
-    const [expanded, setExpanded] = React.useState(false);
-
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
-
+const ArtistCard: React.FC<IArtistCardProps> = (props) => {
     return (
-        <Card sx={{ maxWidth: 300 }}>
-            <CardHeader
-                action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
-                }
-
-            />
+        <Card
+            sx={{ maxWidth: 280, cursor: "pointer", margin: 1 }}
+            onClick={() => { }}
+            elevation={5}
+        >
             <CardMedia
                 component="img"
                 height="140"
-                image="https://maxillo.netlify.app/imagepl.jpeg"
-                alt="Paella dish"
+                image={props.imageUrl}
+                alt="song image"
             />
             <CardContent>
                 <Typography variant="h6" color="text.secondary">
-                    Artist Name
+                    {props.name}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    Artist
-                </Typography>
-
+                {/* <Typography variant="body2" color="text.secondary">
+                    {props.artistNames}
+                </Typography> */}
             </CardContent>
-
-
         </Card>
     );
-}
+};
+
+export default ArtistCard;

@@ -69,6 +69,7 @@ const HomePage: React.FC<HomePageProps> = () => {
                     >
                         {suggestedForYou.data?.suggested_songs?.map((song: any) => (
                             <SongCard
+                                id={song.id}
                                 songName={song.track_title}
                                 artistNames={song.artists
                                     .map((artist: any) => artist.artist_name)
@@ -96,6 +97,7 @@ const HomePage: React.FC<HomePageProps> = () => {
                     >
                         {songsByGenre.data?.songs?.map((song: any) => (
                             <SongCard
+                                id={song.id}
                                 songName={song.track_title}
                                 artistNames={song.artists
                                     .map((artist: any) => artist.artist_name)
@@ -123,6 +125,7 @@ const HomePage: React.FC<HomePageProps> = () => {
                     >
                         {randomAlbums.data?.albums?.map((album: any) => (
                             <AlbumCard
+                                id={album.id}
                                 albumName={album.album_title}
                                 artistNames={album.artists
                                     .map((artist: any) => artist.artist_name)
@@ -150,6 +153,7 @@ const HomePage: React.FC<HomePageProps> = () => {
                     >
                         {randomSongs.data?.songs?.map((song: any) => (
                             <SongCard
+                                id={song.id}
                                 songName={song.track_title}
                                 artistNames={song.artists
                                     .map((artist: any) => artist.artist_name)
@@ -177,6 +181,7 @@ const HomePage: React.FC<HomePageProps> = () => {
                     >
                         {systemGeneratedPlaylist.data?.playlists?.map((playlist: any) => (
                             <PlayListCard
+                                id={playlist.id}
                                 name={playlist.playlist_name}
                                 description={playlist.description}
                             />
