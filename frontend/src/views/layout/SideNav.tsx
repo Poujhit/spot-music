@@ -21,7 +21,6 @@ interface ISideNavProps {
 }
 
 const SideNav: React.FC<ISideNavProps> = () => {
-
     const items = [
         {
             title: "Home",
