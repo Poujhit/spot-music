@@ -7,11 +7,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
 
-import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import AudiotrackIcon from "@mui/icons-material/Audiotrack";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, } from "react-router-dom";
 
 
 interface ISongsListProps {
@@ -20,7 +18,6 @@ interface ISongsListProps {
 
 const SongsList: React.FC<ISongsListProps> = (props) => {
     const navigate = useNavigate();
-    const location = useLocation()
 
 
     return (

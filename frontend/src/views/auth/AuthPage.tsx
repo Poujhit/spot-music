@@ -19,7 +19,7 @@ interface IAuthPage { }
 const AuthPage: React.FC<IAuthPage> = () => {
     const navigate = useNavigate();
 
-    const { form, handleTextBox, setAllErrors, errors } = useForm(
+    const { form, handleTextBox, errors } = useForm(
         {
             email: "",
             password: "",

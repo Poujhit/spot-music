@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { styled } from '@mui/material';
 import SideNav from './SideNav';
 // import BackgroundImg from 'assets/gradient-bg.svg';

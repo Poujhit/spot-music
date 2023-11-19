@@ -8,7 +8,6 @@ import SvgIcon from "@mui/material/SvgIcon";
 import Typography from "@mui/material/Typography";
 
 import ButtonBase from "@mui/material/ButtonBase";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import Drawer from "@mui/material/Drawer";
 import { useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -21,9 +20,7 @@ interface ISideNavProps {
     // pathname: string;
 }
 
-const SideNav: React.FC<ISideNavProps> = (props) => {
-    const lgUp = useMediaQuery("(min-width:900px)");
-    const theme = useTheme();
+const SideNav: React.FC<ISideNavProps> = () => {
 
     const items = [
         {
