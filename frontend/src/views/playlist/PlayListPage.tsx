@@ -50,8 +50,15 @@ const PlaylistPage: React.FC<PlaylistPageProps> = () => {
                 </Typography>
                 <Box sx={{ m: 1 }} />
 
-
-                <Button variant="contained">Delete playlist</Button>
+                <Button
+                    variant="contained"
+                    onClick={async () => {
+                        await customAxios.delete(`delete-playlist/${playlistId}/`,);
+                        navigate(-1);
+                    }}
+                >
+                    Delete playlist
+                </Button>
             </Box>
 
             <Box

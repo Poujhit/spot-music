@@ -18,7 +18,7 @@ def create_playlist(request):
         user = User.objects.get(pk=user_id)
 
         playlist = Playlist.objects.create(
-            user=user, playlist_name=data['playlist_name'])
+            user=user, playlist_name=data['playlist_name'], description=data['description'])
 
         # track_id = request.data['track_id']
         # song = Track.objects.get(pk=track_id)

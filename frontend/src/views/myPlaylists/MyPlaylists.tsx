@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Button, Typography } from "@mui/material";
+import CreatePlaylistDialog from "components/CreatePlaylistDialog";
 import PlayListCard from "components/PlayListCard";
 import React, { useEffect, useState } from "react";
 import customAxios from "utils/customAxios";
@@ -8,6 +9,7 @@ interface MyPlaylistsPageProps { }
 
 const MyPlaylistsPage: React.FC<MyPlaylistsPageProps> = () => {
     const [playlists, setPlaylists] = useState<Record<string, any>>([]);
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         customAxios
@@ -30,7 +32,11 @@ const MyPlaylistsPage: React.FC<MyPlaylistsPageProps> = () => {
                     m: 2,
                 }}
             >
-                <Button variant="contained" sx={{ mb: 2 }}>Create a new Playlist</Button>
+                <Button variant="contained" sx={{ mb: 2 }} onClick={() => {
+                    setOpen(true)
+                }}>
+                    Create a new Playlist
+                </Button>
                 {playlists?.map((playlist: any) => (
                     <PlayListCard
                         id={playlist.id}
@@ -38,11 +44,14 @@ const MyPlaylistsPage: React.FC<MyPlaylistsPageProps> = () => {
                         description={playlist.description}
                     />
                 ))}
-
             </Box>
 
-
-
+            <CreatePlaylistDialog
+                open={open}
+                onClose={() => {
+                    setOpen(false);
+                }}
+            />
         </Box>
     );
 };

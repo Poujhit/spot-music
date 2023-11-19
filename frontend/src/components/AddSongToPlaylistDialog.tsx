@@ -1,50 +1,45 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
-export default function FormDialog() {
-    const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    return (
-        <React.Fragment>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Open form dialog
-            </Button>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Subscribe</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We
-                        will send updates occasionally.
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Email Address"
-                        type="email"
-                        fullWidth
-                        variant="standard"
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Subscribe</Button>
-                </DialogActions>
-            </Dialog>
-        </React.Fragment>
-    );
+interface AddSongToPlaylistDialogProps {
+    open: boolean;
+    onClose: () => void;
+    title: string;
+    content: string;
+    onOkHandled: React.MouseEventHandler<HTMLButtonElement>;
+    okButtonText: string | undefined;
+    notOkButtonText: string | undefined;
 }
+
+const AddSongToPlaylistDialog: React.FC<AddSongToPlaylistDialogProps> = (props) => {
+    return (
+        <Dialog
+            open={props.open}
+            id='dialog'
+            onClose={props.onClose}
+            aria-labelledby='alert-dialog-title'
+            aria-describedby='alert-dialog-description'
+        >
+            <DialogTitle id='alert-dialog-title'>{props.title}</DialogTitle>
+            <DialogContent>
+                <DialogContentText id='alert-dialog-description'>
+                    {props.content}
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={props.onClose} color='primary'>
+                    {props.notOkButtonText}
+                </Button>
+                <Button onClick={props.onOkHandled} color='primary' autoFocus>
+                    {props.okButtonText}
+                </Button>
+            </DialogActions>
+        </Dialog>
+    );
+};
+export default AddSongToPlaylistDialog;
