@@ -53,7 +53,7 @@ const PlaylistPage: React.FC<PlaylistPageProps> = () => {
                 <Button
                     variant="contained"
                     onClick={async () => {
-                        await customAxios.delete(`delete-playlist/${playlistId}/`,);
+                        await customAxios.delete(`delete-playlist/${playlistId}/`);
                         navigate(-1);
                     }}
                 >
@@ -75,13 +75,27 @@ const PlaylistPage: React.FC<PlaylistPageProps> = () => {
                                 key={song?.id}
                                 secondaryAction={
                                     <>
-                                        <IconButton edge="end" aria-label="remove from playlist">
+                                        <IconButton
+                                            edge="end"
+                                            aria-label="remove from playlist"
+                                            onClick={async (e) => {
+                                                e.stopPropagation();
+                                                await customAxios.post("remove-song-from-playlist/", {
+                                                    playlist_id: playlist?.id,
+                                                    track_id: song?.id,
+                                                });
+
+                                                window.location.reload();
+                                            }}
+                                            disabled={playlist?.description?.includes('Generated')}
+                                        >
                                             <PlaylistRemoveIcon />
                                         </IconButton>
                                     </>
                                 }
                                 sx={{ cursor: "pointer" }}
-                                onClick={() => {
+                                onClick={(e) => {
+                                    e.stopPropagation()
                                     navigate(`/song/${song.id}`);
                                 }}
                             >

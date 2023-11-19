@@ -43,6 +43,8 @@ const SongPage: React.FC<SongPageProps> = () => {
                 <Box mb={1} />
 
                 <Typography variant="h6">Add Rating to the song</Typography>
+                {/* <Typography variant="body2"></Typography> */}
+
                 <Rating
                     name="simple-controlled"
                     value={rating}

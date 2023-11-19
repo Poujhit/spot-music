@@ -29,13 +29,13 @@ const SongsList: React.FC<ISongsListProps> = (props) => {
                 {props.songs?.map((song: any) => (
                     <ListItem
                         key={song?.id}
-                        secondaryAction={
-                            <>
-                                <IconButton edge="end" aria-label="add to playlist" disabled={location.pathname.includes('playlist')}>
-                                    <PlaylistAddIcon />
-                                </IconButton>
-                            </>
-                        }
+                        // secondaryAction={
+                        //     <>
+                        //         <IconButton edge="end" aria-label="add to playlist" disabled={location.pathname.includes('playlist')}>
+                        //             <PlaylistAddIcon />
+                        //         </IconButton>
+                        //     </>
+                        // }
                         sx={{ cursor: "pointer" }}
                         onClick={() => {
                             navigate(`/song/${song.id}`);
