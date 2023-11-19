@@ -8,8 +8,9 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 
 import PlayListAdd from "@mui/icons-material/PlaylistAdd";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AddSongToPlaylistDialog from "./AddSongToPlaylistDialog";
 
 interface ISongCard {
     id: number;
@@ -17,21 +18,33 @@ interface ISongCard {
     artistNames: string;
     imageUrl: string;
     notClickable?: boolean;
-
 }
 
 const SongCard: React.FC<ISongCard> = (props) => {
     const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
 
     return (
         <Card
-            sx={{ maxWidth: 280, cursor: !props.notClickable ? "pointer" : undefined, margin: 1 }}
-            onClick={() => { !props.notClickable && navigate(`/song/${props.id}`) }}
+            sx={{
+                maxWidth: 280,
+                cursor: !props.notClickable ? "pointer" : undefined,
+                margin: 1,
+            }}
+            onClick={() => {
+                !props.notClickable && navigate(`/song/${props.id}`);
+            }}
             elevation={5}
         >
             <CardHeader
                 action={
-                    <IconButton aria-label="settings" >
+                    <IconButton
+                        aria-label="add-to-playlist"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setOpen(true);
+                        }}
+                    >
                         <PlayListAdd />
                     </IconButton>
                 }
@@ -50,6 +63,15 @@ const SongCard: React.FC<ISongCard> = (props) => {
                     {props.artistNames}
                 </Typography>
             </CardContent>
+            {open && (
+                <AddSongToPlaylistDialog
+                    open={open}
+                    onClose={() => {
+                        setOpen(false);
+                    }}
+                    songId={props.id}
+                />
+            )}
         </Card>
     );
 };
