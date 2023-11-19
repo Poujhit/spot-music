@@ -3,6 +3,8 @@ WSGI config for backend project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
+Web Server Gateway Interface (WSGI) is a mediator responsible for conveying communication between a web server and a Python web application
+
 For more information on this file, see
 https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 """
@@ -14,3 +16,5 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
 
 application = get_wsgi_application()
+
+app = application
