@@ -1,6 +1,6 @@
 # Spot music
 
-Spot MUSIC is an application which has a huge collection of songs.
+Spot MUSIC is a bare-bone spotify like music streaming platform
 
 - Songs are classified based on genre, artists, albums
 - There are users who can login to the system to listen to the songs
